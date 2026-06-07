@@ -134,9 +134,6 @@ class HumanName(object):
         else:
             raise KeyError("Not a valid HumanName attribute", key)
 
-    def next(self):
-        return self.__next__()
-
     def __next__(self):
         if self._count >= len(self._members):
             self._count = 0

@@ -73,9 +73,6 @@ class SetManager(Set):
     def __len__(self):
         return len(self.elements)
 
-    def next(self):
-        return self.__next__()
-
     def __next__(self):
         if self.count >= len(self.elements):
             self.count = 0
