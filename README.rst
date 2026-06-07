@@ -3,7 +3,7 @@ Name Parser
 
 |Build Status| |PyPI| |PyPI version| |Documentation|
 
-A simple Python (3.2+ & 2.6+) module for parsing human names into their
+A simple Python (3.10+) module for parsing human names into their
 individual components. 
 
 * hn.title

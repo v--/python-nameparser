@@ -12,6 +12,19 @@ dist
 .idea
 Pipfile
 Pipfile.lock
+.tm_properties
+
+# virtual environments
+.env/
+.venv/
+venv/
+env/
+
+# tools
+.claude/
+.codex/
+.gemini/
+.pytest_cache/
 
 # docs
 docs/_*

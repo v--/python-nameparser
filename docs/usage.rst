@@ -4,7 +4,7 @@ Using the HumanName Parser
 Example Usage
 -------------
 
-The examples use Python 3, but Python 2.6+ is supported.
+Requires Python 3.10+.
 
 .. doctest::
     :options: +NORMALIZE_WHITESPACE
