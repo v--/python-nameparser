@@ -73,15 +73,6 @@ class SetManager(Set):
     def __len__(self):
         return len(self.elements)
 
-    def __next__(self):
-        if self.count >= len(self.elements):
-            self.count = 0
-            raise StopIteration
-        else:
-            c = self.count
-            self.count = c + 1
-            return getattr(self, self.elements[c]) or next(self)
-
     def add_with_encoding(self, s, encoding=None):
         """
         Add the lower case and no-period version of the string to the set. Pass an
