@@ -29,12 +29,6 @@ from nameparser.config import Constants, TupleManager
 
 log = logging.getLogger('HumanName')
 
-try:
-    unittest.expectedFailure
-except AttributeError:
-    # Python 2.6 backport
-    import unittest2 as unittest
-
 
 class HumanNameTestBase(unittest.TestCase):
     def m(self, actual, expected, hn):
@@ -2608,9 +2602,9 @@ if __name__ == '__main__':
         log.addHandler(logging.StreamHandler())
         name_string = sys.argv[1]
         hn_instance = HumanName(name_string, encoding=sys.stdout.encoding)
-        print((repr(hn_instance)))
+        print(repr(hn_instance))
         hn_instance.capitalize()
-        print((repr(hn_instance)))
+        print(repr(hn_instance))
         print("Initials: " + hn_instance.initials())
     else:
         print("-"*80)

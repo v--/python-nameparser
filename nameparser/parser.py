@@ -24,7 +24,7 @@ def group_contiguous_integers(data):
     return ranges
 
 
-class HumanName(object):
+class HumanName:
     """
     Parse a person's name into individual components.
 
@@ -352,7 +352,7 @@ class HumanName(object):
         else:
             raise TypeError(
                 "Can only assign strings, lists or None to name attributes."
-                " Got {0}".format(type(value)))
+                " Got {}".format(type(value)))
         setattr(self, attr+"_list", self.parse_pieces(val))
 
     @title.setter
@@ -733,7 +733,7 @@ class HumanName(object):
         for part in parts:
             if not isinstance(part, (str, bytes)):
                 raise TypeError("Name parts must be strings. "
-                                "Got {0}".format(type(part)))
+                                " Got {}".format(type(part)))
             output += [x.strip(' ,') for x in part.split(' ')]
 
         # If part contains periods, check if it's multiple titles or suffixes

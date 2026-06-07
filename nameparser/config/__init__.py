@@ -125,7 +125,7 @@ class TupleManager(dict):
         return (TupleManager, (), self.__getstate__())
 
 
-class Constants(object):
+class Constants:
     """
     An instance of this class hold all of the configuration constants for the parser.
 
