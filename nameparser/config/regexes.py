@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 import re
 
 # emoji regex from https://stackoverflow.com/questions/26568722/remove-unicode-emoji-using-re-in-python

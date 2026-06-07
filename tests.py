@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 import unittest
 """
 Run this file to run the tests.
@@ -27,7 +25,6 @@ except ImportError:
     dill = False
 
 from nameparser import HumanName
-from nameparser.util import u
 from nameparser.config import Constants, TupleManager
 
 log = logging.getLogger('HumanName')
@@ -2126,7 +2123,7 @@ class HumanNameCapitalizationTestCase(HumanNameTestBase):
     def test_capitalize_diacritics(self):
         hn = HumanName('matthëus schmidt')
         hn.capitalize()
-        self.m(u(hn), 'Matthëus Schmidt', hn)
+        self.m(str(hn), 'Matthëus Schmidt', hn)
 
     # http://code.google.com/p/python-nameparser/issues/detail?id=15
     def test_downcasing_mac(self):
@@ -2161,14 +2158,14 @@ class HumanNameOutputFormatTests(HumanNameTestBase):
     def test_formatting_init_argument(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)",
                        string_format="TEST1")
-        self.assertEqual(u(hn), "TEST1")
+        self.assertEqual(str(hn), "TEST1")
 
     def test_formatting_constants_attribute(self):
         from nameparser.config import CONSTANTS
         _orig = CONSTANTS.string_format
         CONSTANTS.string_format = "TEST2"
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
-        self.assertEqual(u(hn), "TEST2")
+        self.assertEqual(str(hn), "TEST2")
         CONSTANTS.string_format = _orig
 
     def test_capitalize_name_constants_attribute(self):
@@ -2196,77 +2193,77 @@ class HumanNameOutputFormatTests(HumanNameTestBase):
     def test_quote_nickname_formating(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
         hn.string_format = "{title} {first} {middle} {last} {suffix} '{nickname}'"
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III 'Kenny'")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III 'Kenny'")
         hn.string_format = "{last}, {title} {first} {middle}, {suffix} '{nickname}'"
-        self.assertEqual(u(hn), "Doe, Rev John A. Kenneth, III 'Kenny'")
+        self.assertEqual(str(hn), "Doe, Rev John A. Kenneth, III 'Kenny'")
 
     def test_formating_removing_keys_from_format_string(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
         hn.string_format = "{title} {first} {middle} {last} {suffix} '{nickname}'"
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III 'Kenny'")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III 'Kenny'")
         hn.string_format = "{last}, {title} {first} {middle}, {suffix}"
-        self.assertEqual(u(hn), "Doe, Rev John A. Kenneth, III")
+        self.assertEqual(str(hn), "Doe, Rev John A. Kenneth, III")
         hn.string_format = "{last}, {title} {first} {middle}"
-        self.assertEqual(u(hn), "Doe, Rev John A. Kenneth")
+        self.assertEqual(str(hn), "Doe, Rev John A. Kenneth")
         hn.string_format = "{last}, {first} {middle}"
-        self.assertEqual(u(hn), "Doe, John A. Kenneth")
+        self.assertEqual(str(hn), "Doe, John A. Kenneth")
         hn.string_format = "{last}, {first}"
-        self.assertEqual(u(hn), "Doe, John")
+        self.assertEqual(str(hn), "Doe, John")
         hn.string_format = "{first} {last}"
-        self.assertEqual(u(hn), "John Doe")
+        self.assertEqual(str(hn), "John Doe")
 
     def test_formating_removing_pieces_from_name_buckets(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
         hn.string_format = "{title} {first} {middle} {last} {suffix} '{nickname}'"
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III 'Kenny'")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III 'Kenny'")
         hn.string_format = "{title} {first} {middle} {last} {suffix}"
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III")
         hn.middle = ''
-        self.assertEqual(u(hn), "Rev John Doe III")
+        self.assertEqual(str(hn), "Rev John Doe III")
         hn.suffix = ''
-        self.assertEqual(u(hn), "Rev John Doe")
+        self.assertEqual(str(hn), "Rev John Doe")
         hn.title = ''
-        self.assertEqual(u(hn), "John Doe")
+        self.assertEqual(str(hn), "John Doe")
 
     def test_formating_of_nicknames_with_parenthesis(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
         hn.string_format = "{title} {first} {middle} {last} {suffix} ({nickname})"
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III (Kenny)")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III (Kenny)")
         hn.nickname = ''
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III")
 
     def test_formating_of_nicknames_with_single_quotes(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
         hn.string_format = "{title} {first} {middle} {last} {suffix} '{nickname}'"
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III 'Kenny'")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III 'Kenny'")
         hn.nickname = ''
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III")
 
     def test_formating_of_nicknames_with_double_quotes(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
         hn.string_format = "{title} {first} {middle} {last} {suffix} \"{nickname}\""
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III \"Kenny\"")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III \"Kenny\"")
         hn.nickname = ''
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III")
 
     def test_formating_of_nicknames_in_middle(self):
         hn = HumanName("Rev John A. Kenneth Doe III (Kenny)")
         hn.string_format = "{title} {first} ({nickname}) {middle} {last} {suffix}"
-        self.assertEqual(u(hn), "Rev John (Kenny) A. Kenneth Doe III")
+        self.assertEqual(str(hn), "Rev John (Kenny) A. Kenneth Doe III")
         hn.nickname = ''
-        self.assertEqual(u(hn), "Rev John A. Kenneth Doe III")
+        self.assertEqual(str(hn), "Rev John A. Kenneth Doe III")
 
     def test_remove_emojis(self):
         hn = HumanName("Sam Smith 😊")
         self.m(hn.first, "Sam", hn)
         self.m(hn.last, "Smith", hn)
-        self.assertEqual(u(hn), "Sam Smith")
+        self.assertEqual(str(hn), "Sam Smith")
 
     def test_keep_non_emojis(self):
         hn = HumanName("∫≜⩕ Smith 😊")
         self.m(hn.first, "∫≜⩕", hn)
         self.m(hn.last, "Smith", hn)
-        self.assertEqual(u(hn), "∫≜⩕ Smith")
+        self.assertEqual(str(hn), "∫≜⩕ Smith")
 
     def test_keep_emojis(self):
         from nameparser.config import Constants
@@ -2275,7 +2272,7 @@ class HumanNameOutputFormatTests(HumanNameTestBase):
         hn = HumanName("∫≜⩕ Smith😊", constants)
         self.m(hn.first, "∫≜⩕", hn)
         self.m(hn.last, "Smith😊", hn)
-        self.assertEqual(u(hn), "∫≜⩕ Smith😊")
+        self.assertEqual(str(hn), "∫≜⩕ Smith😊")
         # test cleanup
 
 
