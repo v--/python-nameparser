@@ -1,13 +1,7 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-import sys
 import re
 from operator import itemgetter
 from itertools import groupby
 
-from nameparser.util import u
-from nameparser.util import text_types, binary_type
 from nameparser.util import lc
 from nameparser.util import log
 from nameparser.config import CONSTANTS
@@ -123,10 +117,10 @@ class HumanName(object):
         HumanName instances are equal to other objects whose
         lower case unicode representation is the same.
         """
-        return (u(self)).lower() == (u(other)).lower()
+        return str(self).lower() == str(other).lower()
 
     def __ne__(self, other):
-        return not (u(self)).lower() == (u(other)).lower()
+        return not str(self).lower() == str(other).lower()
 
     def __getitem__(self, key):
         if isinstance(key, slice):
@@ -152,7 +146,7 @@ class HumanName(object):
             self._count = c + 1
             return getattr(self, self._members[c]) or next(self)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.string_format:
             # string_format = "{title} {first} {middle} {last} {suffix} ({nickname})"
             _s = self.string_format.format(**self.as_dict())
@@ -163,11 +157,6 @@ class HumanName(object):
 
     def __hash__(self):
         return hash(str(self))
-
-    def __str__(self):
-        if sys.version_info[0] >= 3:
-            return self.__unicode__()
-        return self.__unicode__().encode(self.encoding)
 
     def __repr__(self):
         if self.unparsable:
@@ -182,9 +171,7 @@ class HumanName(object):
                 'suffix': self.suffix or '',
                 'nickname': self.nickname or '',
             }
-        if sys.version_info[0] >= 3:
-            return _string
-        return _string.encode(self.encoding)
+        return _string
 
     def as_dict(self, include_empty=True):
         """
@@ -361,7 +348,7 @@ class HumanName(object):
     def _set_list(self, attr, value):
         if isinstance(value, list):
             val = value
-        elif isinstance(value, text_types):
+        elif isinstance(value, (str, bytes)):
             val = [value]
         elif value is None:
             val = []
@@ -481,7 +468,7 @@ class HumanName(object):
     def full_name(self, value):
         self.original = value
         self._full_name = value
-        if isinstance(value, binary_type):
+        if isinstance(value, bytes):
             self._full_name = value.decode(self.encoding)
         self.parse_full_name()
 
@@ -657,7 +644,7 @@ class HumanName(object):
 
                 self.suffix_list += parts[1:]
                 pieces = self.parse_pieces(parts[0].split(' '))
-                log.debug("pieces: %s", u(pieces))
+                log.debug("pieces: %s", str(pieces))
                 for i, piece in enumerate(pieces):
                     try:
                         nxt = pieces[i + 1]
@@ -686,7 +673,7 @@ class HumanName(object):
                 # last [suffix], title first middles[,] suffix [,suffix]
                 #      parts[0],      parts[1],              parts[2:...]
 
-                log.debug("post-comma pieces: %s", u(post_comma_pieces))
+                log.debug("post-comma pieces: %s", str(post_comma_pieces))
 
                 # lastname part may have suffixes in it
                 lastname_pieces = self.parse_pieces(parts[0].split(' '), 1)
@@ -747,7 +734,7 @@ class HumanName(object):
 
         output = []
         for part in parts:
-            if not isinstance(part, text_types):
+            if not isinstance(part, (str, bytes)):
                 raise TypeError("Name parts must be strings. "
                                 "Got {0}".format(type(part)))
             output += [x.strip(' ,') for x in part.split(' ')]
@@ -981,7 +968,7 @@ class HumanName(object):
             'Shirley MacLaine'
 
         """
-        name = u(self)
+        name = str(self)
         force = self.C.force_mixed_case_capitalization \
             if force is None else force
 

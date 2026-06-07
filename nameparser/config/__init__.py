@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 The :py:mod:`nameparser.config` module manages the configuration of the
 nameparser. 
@@ -11,7 +10,7 @@ configuration by importing this instance and changing it.
 
     >>> from nameparser.config import CONSTANTS
     >>> CONSTANTS.titles.remove('hon').add('chemistry','dean') # doctest: +ELLIPSIS
-    SetManager(set([u'msgt', ..., u'adjutant']))
+    SetManager({'msgt', ..., 'adjutant'})
 
 You can also adjust the configuration of individual instances by passing
 ``None`` as the second argument upon instantiation.
@@ -21,22 +20,16 @@ You can also adjust the configuration of individual instances by passing
     >>> from nameparser import HumanName
     >>> hn = HumanName("Dean Robert Johns", None)
     >>> hn.C.titles.add('dean') # doctest: +ELLIPSIS
-    SetManager(set([u'msgt', ..., u'adjutant']))
+    SetManager({'msgt', ..., 'adjutant'})
     >>> hn.parse_full_name() # need to run this again after config changes
 
 **Potential Gotcha**: If you do not pass ``None`` as the second argument,
 ``hn.C`` will be a reference to the module config, possibly yielding 
 unexpected results. See `Customizing the Parser <customize.html>`_.
 """
-from __future__ import unicode_literals
 import sys
-try:
-    # Python 3.3+
-    from collections.abc import Set
-except ImportError:
-    from collections import Set
+from collections.abc import Set
 
-from nameparser.util import binary_type
 from nameparser.util import lc
 from nameparser.config.prefixes import PREFIXES
 from nameparser.config.capitalization import CAPITALIZATION_EXCEPTIONS
@@ -102,7 +95,7 @@ class SetManager(Set):
         if sys.stdin:
             stdin_encoding = sys.stdin.encoding
         encoding = encoding or stdin_encoding or DEFAULT_ENCODING
-        if type(s) == binary_type:
+        if isinstance(s, bytes):
             s = s.decode(encoding)
         self.elements.add(lc(s))
 
