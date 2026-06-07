@@ -6,7 +6,7 @@ Development Environment Setup
 
 Install dev dependencies:
 
-    pip install -r dev-requirements.txt
+    pip install --group dev
 
 Running Tests
 ---------------

@@ -1,0 +1,41 @@
+[project]
+name = "nameparser"
+readme = "README.rst"
+requires-python = ">=3.10"
+dynamic = ["version", "description", "license", "authors"]
+dependencies = [
+  "typing_extensions (>=4.5.0); python_version < '3.11'"
+]
+
+[build-system]
+# nameparser is a build requirement of itself because it is imported in setup.py
+requires = ["setuptools (>=82.0.1)", "nameparser"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+  "dill (>=0.2.5)",
+  "sphinx (>=8)",
+  "mypy (>=2.1)",
+  "ruff (>=0.15)"
+]
+
+[tool.mypy]
+packages = ["nameparser"]
+
+[[tool.mypy.overrides]]
+module = [
+  "dill.*",
+]
+ignore_missing_imports = true
+
+[tool.ruff.lint]
+extend-select = [
+  "ANN",   # flake8-annotations
+  "UP",    # pyupgrade
+]
+ignore = [
+  "E74",     # ambiguous-{variable,class,function}-name (I have trouble believing that these are real rules)
+  "UP031",   # printf-string-formatting (the code already uses % formatting)
+  "UP032",   # f-string (the code already uses str.format)
+]

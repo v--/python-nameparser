@@ -30,8 +30,11 @@ jobs:
         python -m pip install --upgrade pip setuptools
         python -m pip install build
         python -m pip install twine
-        python -m pip install sphinx
-        if [ -f dev-requirements.txt ]; then pip install -r dev-requirements.txt; fi
+        python -m pip install --group dev
+    - name: Run linter
+      run: ruff check
+    - name: Check types
+      run: mypy
     - name: Run Tests
       run: |
         python tests.py
