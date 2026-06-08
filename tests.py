@@ -1,3 +1,4 @@
+# ruff: noqa: E402
 import unittest
 """
 Run this file to run the tests.
@@ -56,9 +57,6 @@ class HumanNamePythonTests(HumanNameTestBase):
         hn = HumanName("de la Véña, Jüan")
         self.m(hn.first, "Jüan", hn)
         self.m(hn.last, "de la Véña", hn)
-
-    def test_string_output(self) -> None:
-        hn = HumanName("de la Véña, Jüan")
 
     def test_escaped_utf8_bytes(self) -> None:
         hn = HumanName(b'B\xc3\xb6ck, Gerald')
@@ -2575,14 +2573,6 @@ class HumanNameVariationTests(HumanNameTestBase):
                 hn = HumanName("{title} {first} {middle} {last} {suffix}".format(**hn.as_dict()).split(',')[0])
             hn.C.empty_attribute_default = ''  # format strings below require empty string
             hn_dict = hn.as_dict()
-            attrs = [
-                'title',
-                'first',
-                'middle',
-                'last',
-                'suffix',
-                'nickname',
-            ]
             nocomma = HumanName("{title} {first} {middle} {last} {suffix}".format(**hn_dict))
             lastnamecomma = HumanName("{last}, {title} {first} {middle} {suffix}".format(**hn_dict))
             if hn.suffix:

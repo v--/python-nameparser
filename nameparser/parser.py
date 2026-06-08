@@ -233,7 +233,7 @@ class HumanName:
         initials = []
         if len(parts) and isinstance(parts, list):
             for part in parts:
-                if not (self.is_prefix(part) or self.is_conjunction(part)) or firstname == True:
+                if not (self.is_prefix(part) or self.is_conjunction(part)) or firstname:
                     initials.append(part[0])
         if len(initials) > 0:
             return " ".join(initials)
@@ -574,7 +574,7 @@ class HumanName:
         """
         if self.title \
                 and len(self) == 2 \
-                and not lc(self.title) in self.C.first_name_titles:
+                and lc(self.title) not in self.C.first_name_titles:
             self.last, self.first = self.first, self.last
 
     def parse_full_name(self) -> None:

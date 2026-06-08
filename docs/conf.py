@@ -1,3 +1,4 @@
+# ruff: noqa: E402
 #
 # Nameparser documentation build configuration file, created by
 # sphinx-quickstart on Fri May 16 01:29:58 2014.
