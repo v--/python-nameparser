@@ -58,6 +58,10 @@ class HumanNamePythonTests(HumanNameTestBase):
         self.m(hn.first, "Jüan", hn)
         self.m(hn.last, "de la Véña", hn)
 
+    def test_string_output(self) -> None:
+        hn = HumanName("de la Véña, Jüan")
+        self.m(str(hn), "Jüan de la Véña", hn)
+
     def test_escaped_utf8_bytes(self) -> None:
         hn = HumanName(b'B\xc3\xb6ck, Gerald')
         self.m(hn.first, "Gerald", hn)
