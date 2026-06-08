@@ -38,5 +38,5 @@ Unless you add better coverage someplace else, add a few examples of your names 
 New Releases
 ------------
 
-    $ python setup.py sdist bdist_wheel
+    $ python -m build
     $ twine upload dist/*
