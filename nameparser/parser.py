@@ -19,7 +19,7 @@ def group_contiguous_integers(data: Iterable[int]) -> list[tuple[int, int]]:
     return list of tuples containing first and last index
     position of contiguous numbers in a series
     """
-    ranges = list[tuple[int, int]]()
+    ranges: list[tuple[int, int]] = []
     for key, group_with_indices in groupby(enumerate(data), lambda i: i[0] - i[1]):
         group = list(map(itemgetter(1), group_with_indices))
         if len(group) > 1:
@@ -755,7 +755,7 @@ class HumanName:
         :rtype: list
         """
 
-        output = list[str]()
+        output: list[str] = []
         for part in parts:
             if not isinstance(part, (str, bytes)):
                 raise TypeError("Name parts must be strings. "
@@ -822,7 +822,7 @@ class HumanName:
 
         contiguous_conj_i = group_contiguous_integers(conj_index)
 
-        delete_i = list[int]()
+        delete_i: list[int] = []
         for cont_i in contiguous_conj_i:
             new_piece = " ".join(pieces[cont_i[0]: cont_i[1]+1])
             delete_i += list(range(cont_i[0]+1, cont_i[1]+1))

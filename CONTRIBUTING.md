@@ -4,7 +4,7 @@ Contributing
 Development Environment Setup
 --------------------------------
 
-Install dev dependencies:
+Install dev dependencies (requires pip >= 24.1 for dependency group support):
 
     pip install --group dev
 

@@ -1267,6 +1267,14 @@ class HumanNameConjunctionTestCase(HumanNameTestBase):
         self.m(hn.last, "I", hn)
         self.m(hn.suffix, "", hn)
 
+    def test_roman_numeral_suffix_not_in_suffix_list(self) -> None:
+        # VI-X are not in the suffix word lists, so they reach the
+        # is_roman_numeral(nxt) branch rather than are_suffixes()
+        hn = HumanName("John Smith VI")
+        self.m(hn.first, "John", hn)
+        self.m(hn.last, "Smith", hn)
+        self.m(hn.suffix, "VI", hn)
+
     # tests for Rev. title (Reverend)
     def test124(self) -> None:
         hn = HumanName("Rev. John A. Kenneth Doe")
@@ -1780,6 +1788,12 @@ class SuffixesTestCase(HumanNameTestBase):
 
     def test_phd_with_erroneous_space(self) -> None:
         hn = HumanName("John Smith, Ph. D.")
+        self.m(hn.first, "John", hn)
+        self.m(hn.last, "Smith", hn)
+        self.m(hn.suffix, "Ph. D.", hn)
+
+    def test_phd_extracted_without_comma(self) -> None:
+        hn = HumanName("John Smith Ph. D.")
         self.m(hn.first, "John", hn)
         self.m(hn.last, "Smith", hn)
         self.m(hn.suffix, "Ph. D.", hn)

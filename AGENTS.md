@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-# Install dev dependencies
+# Install dev dependencies (requires pip >= 24.1)
 pip install --group dev
 
 # Run all tests
