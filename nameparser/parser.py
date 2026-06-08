@@ -82,12 +82,12 @@ class HumanName:
     unparsable = True
     _full_name = ''
 
-    title_list: list[str] = []
-    first_list: list[str] = []
-    middle_list: list[str] = []
-    last_list: list[str] = []
-    suffix_list: list[str] = []
-    nickname_list: list[str] = []
+    title_list: list[str]
+    first_list: list[str]
+    middle_list: list[str]
+    last_list: list[str]
+    suffix_list: list[str]
+    nickname_list: list[str]
 
     def __init__(
         self,
