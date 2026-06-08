@@ -3,10 +3,14 @@ from setuptools import setup
 import nameparser
 import os
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+def read(fname: str) -> str:
+    with open(os.path.join(os.path.dirname(__file__), fname)) as file:
+        return file.read()
+
 
 README = read('README.rst')
+
 
 setup(name='nameparser',
       packages      = ['nameparser','nameparser.config'],
