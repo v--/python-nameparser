@@ -1,16 +1,37 @@
 [project]
 name = "nameparser"
+description = "A simple Python module for parsing human names into their individual components."
 readme = "README.rst"
 requires-python = ">=3.10"
-dynamic = ["version", "description", "license", "authors"]
+license = {text = "LGPL"}
+authors = [{name = "Derek Gulbranson", email = "derek73@gmail.com"}]
+dynamic = ["version"]
+keywords = ["names", "parser"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Development Status :: 5 - Production/Stable",
+  "Natural Language :: English",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Text Processing :: Linguistic",
+]
 dependencies = [
   "typing_extensions (>=4.5.0); python_version < '3.11'"
 ]
 
 [build-system]
-# nameparser is a build requirement of itself because it is imported in setup.py
-requires = ["setuptools (>=82.0.1)", "nameparser"]
+requires = ["setuptools (>=82.0.1)"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "nameparser._version.__version__"}
 
 [dependency-groups]
 dev = [
